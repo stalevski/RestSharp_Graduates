@@ -19,6 +19,7 @@ namespace RestSharp_v1.Tests
     {
         Pet pet;
         StoreSpecification pss;
+        string RequestStatus;
 
         // These can be put in all the tests separately, but because they are used in more than 1 test its better to initialize them here
 
@@ -58,31 +59,42 @@ namespace RestSharp_v1.Tests
         [Test]
         public void PutPetTest()
         {
-
+            RequestStatus = pss.PostPet(pet);
+            RequestStatus = pss.PutPet(pet);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
         [Test]
         public void GetPetByStatusTest()
         {
-
+            RequestStatus = pss.PostPet(pet);
+            RequestStatus = pss.GetPetByStatus(pet.status);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
         [Test]
         public void GetPetByIdTest()
         {
-
+            RequestStatus = pss.PostPet(pet);
+            RequestStatus = pss.GetPetById(pet.id);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
-        [Test]
-        public void UpdatePetByIdTest()
-        {
-
-        }
+        //[Test]
+        //public void UpdatePetByIdTest()
+        //{
+        //    RequestStatus = pss.PostPet(pet);
+        //    pet.name = RandomDataGenerator.RandomStringOnlyLetters(RandomDataGenerator.RandomNumber(9, 15));
+        //   RequestStatus = pss.PostUpdatePetById(pet.id);
+        //   Assert.AreEqual(RequestStatus, "OK", "Not OK");
+        //}
 
         [Test]
         public void DeletePetByIdTest()
         {
-
+            RequestStatus = pss.PostPet(pet);
+            RequestStatus = pss.DeletePetById(pet.id);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
 
