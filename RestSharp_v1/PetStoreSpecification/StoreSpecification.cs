@@ -11,5 +11,10 @@ namespace RestSharp_v1.PetStoreSpecification
     public class StoreSpecification
     {
         public RestClient Client { get; set; }
+
+        public StoreSpecification()
+        {
+            Client = new RestClient("https://petstore.swagger.io/v2/");
+        }
     }
 }

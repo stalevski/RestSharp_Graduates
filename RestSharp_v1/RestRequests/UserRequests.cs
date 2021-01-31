@@ -15,5 +15,72 @@ namespace RestSharp_v1.RestRequests
         private const string UserUrl = "/user";
 
         //Write the requests for the User model
+        public static string PostUser(this StoreSpecification pss, User user)
+        {
+            var request = new RestRequest(UserUrl, Method.POST, DataFormat.Json);
+            request.AddJsonBody(user);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string PostCreateWithList(this StoreSpecification pss, List<User> users)
+        {
+            var request = new RestRequest($"{UserUrl}/createWithList", Method.POST, DataFormat.Json);
+            request.AddJsonBody(users);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string PostCreateWithArray(this StoreSpecification pss, User[] users)
+        {
+            var request = new RestRequest($"{UserUrl}/createWithArray", Method.POST, DataFormat.Json);
+            request.AddJsonBody(users);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string GetUser(this StoreSpecification pss, string username)
+        {
+            var request = new RestRequest($"{UserUrl}/{username}", Method.GET);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string GetUserLogin(this StoreSpecification pss, string username, string password)
+        {
+            var request = new RestRequest($"{UserUrl}/?username={username}&password={password}", Method.GET);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string GetUserLogout(this StoreSpecification pss)
+        {
+            var request = new RestRequest($"{UserUrl}/logout", Method.GET);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string PutUser(this StoreSpecification pss, User user)
+        {
+            var request = new RestRequest($"{UserUrl}/{user.username}", Method.PUT, DataFormat.Json);
+            request.AddJsonBody(user);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
+
+        public static string DeleteUser(this StoreSpecification pss, string username)
+        {
+            var request = new RestRequest($"{UserUrl}/{username}", Method.DELETE);
+            var response = pss.Client.Execute(request);
+
+            return response.StatusCode.ToString();
+        }
     }
 }
