@@ -58,6 +58,7 @@
     <Compile Include="Contracts\Category.cs" />
     <Compile Include="Contracts\Pet.cs" />
     <Compile Include="Contracts\Tag.cs" />
+    <Compile Include="Contracts\User.cs" />
     <Compile Include="Enums\PetStatus.cs" />
     <Compile Include="Helpers\RandomDataGenerators.cs" />
     <Compile Include="PetStoreSpecification\StoreSpecification.cs" />

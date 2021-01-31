@@ -17,81 +17,87 @@ namespace RestSharp_v1.Tests
     [TestFixture]
     public class Tests
     {
-        Pet pet;
+        User[] users= new User[3];
+        List<User> userList = new List<User>();
         StoreSpecification pss;
-
-        // These can be put in all the tests separately, but because they are used in more than 1 test its better to initialize them here
+        string RequestStatus = null;
 
         [SetUp]
         public void Init()
         {
-            pet = new Pet();
+            users[0] = new User();
+            users[1] = new User();
+            users[2] = new User();
+            userList.Add(users[0]);
+            userList.Add(users[1]);
+            userList.Add(users[2]);
             pss = new StoreSpecification();
-
-            // These can be put in all the tests separately, but because they are used in more than 1 test its better to initialize them here
         }
 
-        //Write the missing "tests" and assert the status code from the requests. If you want to experiment you can try asserting something else
         [Test]
-        public void PostPetTest()
+        public void PostArrayOfUsersTest()
         {
-            //Pet pet = new Pet();
-            //StoreSpecification pss = new StoreSpecification();
-
-
-            string RequestStatus = pss.PostPet(pet);
-
-            TestContext.WriteLine("TestContext.WriteLine\n");
-            TestContext.WriteLine(JsonConvert.SerializeObject(pet));
-            TestContext.WriteLine("\n");
-
-            Console.WriteLine("Console.WriteLine\n");
-            Console.WriteLine(JsonConvert.SerializeObject(pet));
-
-            //This is just to see if there is a difference between TestContext.WriteLine and Console.WriteLine
-            //They both show up in the same test output window and there is no difference
-            //Probably there was a difference in older version of Visual Studio
-
+            RequestStatus = pss.PostArrayOfUsers(users);
             Assert.AreEqual(RequestStatus, "OK", "Post status was not OK");
         }
 
         [Test]
-        public void PutPetTest()
+        public void PostListOfUsersTest()
         {
-
+            RequestStatus = pss.PostListOfUsers(userList);
+            Assert.AreEqual(RequestStatus, "OK", "Post status was not OK");
         }
 
         [Test]
-        public void GetPetByStatusTest()
+        public void GetUserByUsernameTest()
         {
-
+            RequestStatus = pss.PostUser(users[0]);
+            RequestStatus = pss.GetUserByUsername(users[0].username);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
         [Test]
-        public void GetPetByIdTest()
+        public void PutUserByUsernameTest()
         {
-
+            RequestStatus = pss.PutUser(users[0]);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
         [Test]
-        public void UpdatePetByIdTest()
+        public void DeleteUserByUsernameTest()
         {
-
+            RequestStatus = pss.PostUser(users[0]);
+            RequestStatus = pss.DeleteUserByUsername(users[0].username);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
         [Test]
-        public void DeletePetByIdTest()
+        public void GetUserByLoginTest()
         {
-
+            RequestStatus = pss.PostUser(users[0]);
+            RequestStatus = pss.GetUserWhenLogin(users[0].username, users[0].password);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
         }
 
+        [Test]
+        public void GetUserByLogoutTest()
+        {
+            RequestStatus = pss.PostUser(users[0]);
+            RequestStatus = pss.GetUserWhenLogout();
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
+        }
+
+        [Test]
+        public void PostUserTest()
+        {
+            RequestStatus = pss.PostUser(users[0]);
+            Assert.AreEqual(RequestStatus, "OK", "Not OK");
+        }
 
         [TearDown]
         public void Cleanup()
         {
             pss.Client = null;
-
-            // I don't this this is necessary
         }
     }
 }
