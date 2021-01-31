@@ -131,6 +131,16 @@ namespace RestSharp_v1.Tests
         [Test]
         public void PostCreateWithArrayTest()
         {
+            usersArray[0] = new User();
+            usersArray[2] = new User();
+
+            usersArray[3] = new User();
+
+            usersArray[4] = new User();
+
+            usersArray[1] = new User();
+
+
 
             string RequestStatus = pss.PostCreateWithArray(usersArray);
 
